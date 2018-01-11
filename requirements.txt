@@ -1,0 +1,6 @@
+torchvision
+matplotlib
+ipython
+jupyter
+tqdm
+click
