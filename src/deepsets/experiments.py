@@ -36,6 +36,7 @@ class SumOfDigits(object):
 
         x, target = Variable(x), Variable(target)
 
+        self.optimizer.zero_grad()
         pred = self.model.forward(x)
         the_loss = F.mse_loss(pred, target)
 
