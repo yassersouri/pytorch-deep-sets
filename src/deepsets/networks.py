@@ -1,11 +1,11 @@
-from typing import Any
+from typing import Union
 import torch.nn as nn
 from torch.autograd import Variable
 from torch import FloatTensor
 import torch
 import torch.nn.functional as F
 
-NetIO = Any[FloatTensor, Variable]
+NetIO = Union[FloatTensor, Variable]
 
 
 class InvariantModel(nn.Module):
@@ -42,7 +42,7 @@ class SmallMNISTCNNPhi(nn.Module):
     def forward(self, x: NetIO) -> NetIO:
         x = F.relu(F.max_pool2d(self.conv1(x), 2))
         x = self.conv2_drop(self.conv2(x))
-        x = F.relu(F.max_pool2d(x), 2)
+        x = F.relu(F.max_pool2d(x, 2))
         x = x.view(-1, 320)
         x = F.relu(self.fc1(x))
         x = self.fc1_drop(x)
