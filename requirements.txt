@@ -5,3 +5,4 @@ ipython
 jupyter
 tqdm
 click
+numpy
