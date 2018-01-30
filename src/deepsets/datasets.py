@@ -32,7 +32,7 @@ class MNISTSummation(Dataset):
     def __len__(self) -> int:
         return self.dataset_len
 
-    def __getitem__(self, item: int) -> Tuple[FloatTensor, LongTensor]:
+    def __getitem__(self, item: int) -> Tuple[FloatTensor, FloatTensor]:
         mnist_items = self.mnist_items[item]
 
         the_sum = 0
@@ -42,4 +42,4 @@ class MNISTSummation(Dataset):
             the_sum += target
             images.append(img)
 
-        return torch.stack(images, dim=0), torch.LongTensor([the_sum])
+        return torch.stack(images, dim=0), torch.FloatTensor([the_sum])
