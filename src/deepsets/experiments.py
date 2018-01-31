@@ -11,8 +11,9 @@ from .networks import InvariantModel, SmallMNISTCNNPhi, SmallRho
 
 
 class SumOfDigits(object):
-    def __init__(self, lr=1e-3):
+    def __init__(self, lr=1e-3, wd=5e-3):
         self.lr = lr
+        self.wd = wd
         self.train_db = MNISTSummation(min_len=2, max_len=10, dataset_len=100000, train=True, transform=MNIST_TRANSFORM)
         self.test_db = MNISTSummation(min_len=5, max_len=50, dataset_len=100000, train=False, transform=MNIST_TRANSFORM)
 
@@ -23,13 +24,16 @@ class SumOfDigits(object):
         if torch.cuda.is_available():
             self.model.cuda()
 
-        self.optimizer = optim.Adam(self.model.parameters(), lr=self.lr)
+        self.optimizer = optim.Adam(self.model.parameters(), lr=self.lr, weight_decay=self.wd)
 
-        self.summary_writer = SummaryWriter(log_dir='/home/souri/temp/deepsets/exp-lr:%1.5f/' % self.lr)
+        self.summary_writer = SummaryWriter(
+            log_dir='/home/souri/temp/deepsets/exp-lr:%1.5f-wd:%1.4f/' % (self.lr, self.wd))
 
-    def train_1_epoch(self):
+    def train_1_epoch(self, epoch_num: int = 0):
+        self.model.train()
         for i in tqdm(range(len(self.train_db))):
-            self.train_1_item(i)
+            loss = self.train_1_item(i)
+            self.summary_writer.add_scalar('train_loss', loss, i + len(self.train_db) * epoch_num)
 
     def train_1_item(self, item_number: int) -> float:
         x, target = self.train_db.__getitem__(item_number)
@@ -51,8 +55,6 @@ class SumOfDigits(object):
 
         the_loss_numpy = the_loss_tensor.numpy().flatten()
         the_loss_float = float(the_loss_numpy[0])
-
-        self.summary_writer.add_scalar('train_loss', the_loss_float, item_number)
 
         return the_loss_float
 
@@ -85,4 +87,4 @@ class SumOfDigits(object):
         totals = np.array(totals)
         corrects = np.array(corrects)
 
-        print(corrects/totals)
+        print(corrects / totals)
