@@ -7,7 +7,7 @@ from torch.utils.data.dataset import Dataset
 from torchvision.datasets import MNIST
 from torchvision.transforms import Compose, ToTensor, Normalize
 
-from settings import DATA_ROOT
+from .settings import DATA_ROOT
 
 MNIST_TRANSFORM = Compose([ToTensor(), Normalize((0.1307,), (0.3081,))])
 

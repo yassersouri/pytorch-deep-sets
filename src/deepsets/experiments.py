@@ -5,15 +5,15 @@ from torch import optim
 from torch.autograd import Variable
 from tqdm import tqdm
 
-from datasets import MNISTSummation, MNIST_TRANSFORM
-from networks import InvariantModel, SmallMNISTCNNPhi, SmallRho
+from .datasets import MNISTSummation, MNIST_TRANSFORM
+from .networks import InvariantModel, SmallMNISTCNNPhi, SmallRho
 
 
 class SumOfDigits(object):
     def __init__(self, lr=1e-3):
         self.lr = lr
-        self.train_db = MNISTSummation(min_len=2, max_len=10, dataset_len=10000, train=True, transform=MNIST_TRANSFORM)
-        self.test_db = MNISTSummation(min_len=5, max_len=50, dataset_len=10000, train=False, transform=MNIST_TRANSFORM)
+        self.train_db = MNISTSummation(min_len=2, max_len=10, dataset_len=100000, train=True, transform=MNIST_TRANSFORM)
+        self.test_db = MNISTSummation(min_len=5, max_len=50, dataset_len=100000, train=False, transform=MNIST_TRANSFORM)
 
         self.the_phi = SmallMNISTCNNPhi()
         self.the_rho = SmallRho(input_size=10, output_size=1)
