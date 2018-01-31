@@ -1,8 +1,9 @@
 import click
-from deepsets.settings import RANDOM_SEED
 import numpy as np
 import torch
+
 from deepsets.experiments import SumOfDigits
+from deepsets.settings import RANDOM_SEED
 
 
 @click.command()

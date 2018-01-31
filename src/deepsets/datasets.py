@@ -1,12 +1,13 @@
 from typing import Tuple
 
-from torchvision.datasets import MNIST
-import torch
-from torch import FloatTensor, LongTensor
-from torch.utils.data.dataset import Dataset
-from torchvision.transforms import Compose, ToTensor, Normalize
-from settings import DATA_ROOT
 import numpy as np
+import torch
+from torch import FloatTensor
+from torch.utils.data.dataset import Dataset
+from torchvision.datasets import MNIST
+from torchvision.transforms import Compose, ToTensor, Normalize
+
+from settings import DATA_ROOT
 
 MNIST_TRANSFORM = Compose([ToTensor(), Normalize((0.1307,), (0.3081,))])
 

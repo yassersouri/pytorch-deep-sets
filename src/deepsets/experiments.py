@@ -1,11 +1,12 @@
 import torch
 import torch.nn.functional as F
+from tensorboardX import SummaryWriter
 from torch import optim
 from torch.autograd import Variable
+from tqdm import tqdm
+
 from datasets import MNISTSummation, MNIST_TRANSFORM
 from networks import InvariantModel, SmallMNISTCNNPhi, SmallRho
-from tqdm import tqdm
-from tensorboardX import SummaryWriter
 
 
 class SumOfDigits(object):
