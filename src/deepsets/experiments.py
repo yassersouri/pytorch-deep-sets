@@ -27,7 +27,7 @@ class SumOfDigits(object):
         self.optimizer = optim.Adam(self.model.parameters(), lr=self.lr, weight_decay=self.wd)
 
         self.summary_writer = SummaryWriter(
-            log_dir='/home/souri/temp/deepsets/exp-lr:%1.5f-wd:%1.4f/' % (self.lr, self.wd))
+            log_dir='/home/souri/temp/deepsets/exp-lr:%1.5f-wd:%1.5f/' % (self.lr, self.wd))
 
     def train_1_epoch(self, epoch_num: int = 0):
         self.model.train()
