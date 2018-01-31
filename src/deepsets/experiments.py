@@ -1,3 +1,4 @@
+import numpy as np
 import torch
 import torch.nn.functional as F
 from tensorboardX import SummaryWriter
@@ -24,7 +25,7 @@ class SumOfDigits(object):
 
         self.optimizer = optim.Adam(self.model.parameters(), lr=self.lr)
 
-        self.summary_writer = SummaryWriter(log_dir='/home/souri/temp/deepsets/exp1/')
+        self.summary_writer = SummaryWriter(log_dir='/home/souri/temp/deepsets/exp-lr:%1.5f/' % self.lr)
 
     def train_1_epoch(self):
         for i in tqdm(range(len(self.train_db))):
