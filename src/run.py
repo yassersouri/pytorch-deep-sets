@@ -16,6 +16,7 @@ def main(random_seed):
     the_experiment = SumOfDigits(lr=1e-3)
 
     the_experiment.train_1_epoch()
+    the_experiment.evaluate()
 
 
 if __name__ == '__main__':

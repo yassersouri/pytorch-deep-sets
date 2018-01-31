@@ -54,3 +54,34 @@ class SumOfDigits(object):
         self.summary_writer.add_scalar('train_loss', the_loss_float, item_number)
 
         return the_loss_float
+
+    def evaluate(self):
+        self.model.eval()
+        totals = [0] * 51
+        corrects = [0] * 51
+
+        for i in tqdm(range(len(self.test_db))):
+            x, target = self.test_db.__getitem__(i)
+
+            item_size = x.shape[0]
+
+            if torch.cuda.is_available():
+                x = x.cuda()
+
+            pred = self.model.forward(Variable(x)).data
+
+            if torch.cuda.is_available():
+                pred = pred.cpu().numpy().flatten()
+
+            pred = int(round(float(pred[0])))
+            target = int(round(float(target.numpy()[0])))
+
+            totals[item_size] += 1
+
+            if pred == target:
+                corrects[item_size] += 1
+
+        totals = np.array(totals)
+        corrects = np.array(corrects)
+
+        print(corrects/totals)
