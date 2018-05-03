@@ -6,3 +6,4 @@ jupyter
 tqdm
 click
 numpy
+tensorboardX
